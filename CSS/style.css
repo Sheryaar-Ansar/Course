@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins',  Arial, Helvetica, sans-serif;
+    /* font-family: 'Poppins',  Arial, Helvetica, sans-serif; */
 }
 
 body{
@@ -24,4 +24,60 @@ body{
     border-radius: 45px;
     background-color: #efefef;
     padding: inherit;
+}
+
+.marine{
+    color: darkcyan;
+    padding-bottom: 15px;
+    padding-top: 15px;
+    text-underline-position: auto;
+    pointer-events: none;
+}
+.marine_1{
+    color: #ee3e80;
+    padding: 0 0 15px;
+}
+
+.marine_2{
+    color: rgb(100, 100, 90);
+}
+
+.marine_3{
+    background-color: darkcyan;
+    padding-bottom: 20px;
+    padding-top: 15px;
+}
+.marine_4{
+    background-color: #ee3e80;
+    padding-bottom: 20px;
+    padding-top: 15px;
+}
+.marine_5{
+    background-color: rgb(100, 100, 90);
+    padding-bottom: 20px;
+    padding-top: 15px;
+}
+hr{
+    margin: 10px;
+}
+
+.pone {
+    background-color: rgb(245, 75, 75);
+    opacity: 0.5;
+    padding: 90px 0 0 0;
+}
+
+.ptwo {
+    background-color: rgb(184, 0, 0);
+    background-color: rgba(228, 0, 0, 0.5);
+    padding: 90px 0 0 0;
+}
+.marine_6{
+    background-color: #ee3e80;
+    background-color: hsl(0, 0%, 78%);
+}
+
+.marine_8{
+    background-color: #ffffff;
+    background-color: hsla(0, 100%, 0%, 0.4);
 }

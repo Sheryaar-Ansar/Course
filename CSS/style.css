@@ -59,6 +59,8 @@ body{
 }
 hr{
     margin: 10px;
+    border: 2px solid;
+    color: gray;
 }
 
 .pone {
@@ -81,3 +83,4 @@ hr{
     background-color: #ffffff;
     background-color: hsla(0, 100%, 0%, 0.4);
 }
+

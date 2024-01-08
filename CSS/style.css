@@ -1,63 +1,67 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     /* font-family: 'Poppins',  Arial, Helvetica, sans-serif; */
 }
 
-body{
-    background-color: rgb(185,179,175);
+body {
+    background-color: rgb(185, 179, 175);
     padding: 10px;
 }
 
-#potato{
+#potato {
     color: rgb(255, 255, 255);
 }
 
-#para-potato{
+#para-potato {
     color: tomato;
 
 }
 
-.page{
+.page {
     border: 4px solid rgb(199, 196, 194);
     border-radius: 45px;
     background-color: #efefef;
     padding: inherit;
 }
 
-.marine{
+.marine {
     color: darkcyan;
     padding-bottom: 15px;
     padding-top: 15px;
     text-underline-position: auto;
     pointer-events: none;
 }
-.marine_1{
+
+.marine_1 {
     color: #ee3e80;
     padding: 0 0 15px;
 }
 
-.marine_2{
+.marine_2 {
     color: rgb(100, 100, 90);
 }
 
-.marine_3{
+.marine_3 {
     background-color: darkcyan;
     padding-bottom: 20px;
     padding-top: 15px;
 }
-.marine_4{
+
+.marine_4 {
     background-color: #ee3e80;
     padding-bottom: 20px;
     padding-top: 15px;
 }
-.marine_5{
+
+.marine_5 {
     background-color: rgb(100, 100, 90);
     padding-bottom: 20px;
     padding-top: 15px;
 }
-hr{
+
+hr {
     margin: 10px;
     border: 2px solid;
     color: gray;
@@ -74,13 +78,62 @@ hr{
     background-color: rgba(228, 0, 0, 0.5);
     padding: 90px 0 0 0;
 }
-.marine_6{
+
+.marine_6 {
     background-color: #ee3e80;
     background-color: hsl(0, 0%, 78%);
 }
 
-.marine_8{
+.marine_8 {
     background-color: #ffffff;
     background-color: hsla(0, 100%, 0%, 0.4);
 }
 
+
+.font,
+.briards {
+    font-family: Arial, Verdana, sans-serif;
+}
+
+.credits {
+    font-family: "Courier New", Courier,
+        monospace;
+    margin-bottom: 10px;
+}
+
+.intro {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    line-height: 3vh;
+}
+
+.font_1,
+.briards_1 {
+    font-size: 3em;
+}
+
+.credits_1 {
+    font-size: 25px;
+}
+
+.intro_1 {
+    font-size: 200%;
+}
+/* Font face */
+@font-face {
+    font-family: 'ChunkFiveRegular';
+    src: url('fonts/chunkfive.eot');
+}
+
+.face {
+    font-family: ChunkFiveRegular, Georgia, serif;
+}
+
+.breed_2{
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+}
+.breed_2:hover{
+    text-decoration: underline;
+    font-size: 1.1em;
+}

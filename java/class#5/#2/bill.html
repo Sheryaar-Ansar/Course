@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Bill</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="column-container">
+            <div class="quantity">
+                <label for="riceQty">Rice Quantity</label>
+                <div class="input">
+                    <input type="number" class="Qty" name="riceQty" id="riceQty" placeholder="0.00 KG">
+                </div>
+            </div>
+            <div class="quantity">
+                <label for="beansQty">Beans Quantity</label>
+                <div class="input">
+                    <input type="number" class="Qty" name="beansQty" id="beansQty" placeholder="0.00 KG">
+                </div>
+            </div>
+            <div class="quantity">
+                <label for="wheatQty">Wheat Quantity</label>
+                <div class="input">
+                    <input type="number" class="Qty" name="wheatQty" id="wheatQty" placeholder="0.00 KG">
+                </div>
+            </div>
+            <div class="btn">
+                <button>Calculate</button>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-container">
+                <h2>Price</h2>
+                <p>Rice Price:
+                    <b>5$</b>
+                </p>
+                <p>
+                    Rice Total :
+                    <b id="riceTotal"></b>
+                </p>
+                <p>Beans Price:
+                    <b>7$</b>
+                </p>
+                <p>
+                    Beans Total :
+                    <b id="beansTotal"></b>
+                </p>
+                <p>Wheat Price:
+                    <b>10$</b>
+                </p>
+                <p>
+                    Wheat Total :
+                    <b id="wheatTotal"></b>
+                </p>
+                <p>Total Price:
+                    <b id="total"></b>
+                </p>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

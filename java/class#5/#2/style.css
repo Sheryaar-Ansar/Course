@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    background: linear-gradient(30deg, grey, darkcyan);
+
+}
+
+.column-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+    margin-bottom: -180px;
+    margin-left: 70px;
+    width: 50%;
+    border: 2px solid aliceblue;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+
+}
+.quantity{
+    margin-bottom: 20px;
+    /* width: 50%; */
+
+}
+.Qty{
+    height: 35px;
+    background: aliceblue;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    text-align: center;
+}
+label{
+    font-weight: bold;
+    text-transform: uppercase;
+    color: aliceblue;
+}
+.btn{
+    display: flex;
+    align-items: center;
+    /* margin-left: 0px; */
+}
+.btn button{
+    height: 30px;
+    width: 95px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 2px solid;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: aliceblue;
+    background: transparent;
+}
+.btn button:hover{
+    background: rgba(0, 0, 0, 0.5);
+}
+.card{
+    float: right;
+    clear: right;
+    margin-top: -200px;
+    padding: 25px;
+    /* border: 2px solid; */
+
+}
+.card-container h2{
+    padding-bottom: 20px;
+}
+.card-container p{
+    padding-bottom: 10px;
+    color: aliceblue;
+    font-weight: 500;
+}
+.card-container b{
+    color: black;
+}
+

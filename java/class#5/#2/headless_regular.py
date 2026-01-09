@@ -15,8 +15,8 @@ fabric_entry = input("1 INVOICE ENTRY NUMBER:- ")
 fabric_amount = input("TOTAL BILL AMOUNT OF 1:- ")
 fancy_entry = input("2 INVOICE ENTRY NUMBER:- ")
 fancy_amount = input("TOTAL BILL AMOUNT OF 2 :- ")
-mix_entry = input("3 INVOICE ENTRY NUMBER:- ")
-mix_amount = input("TOTAL BILL AMOUNT OF 3 :- ")
+# mix_entry = input("3 INVOICE ENTRY NUMBER:- ")
+# mix_amount = input("TOTAL BILL AMOUNT OF 3 :- ")
 time_data = int(input("TIME GAP BETWEEN EACH ENTRY (seconds):- "))
 number = int(input("NUMBER OF TIMES TO REGISTER ENTRIES:- "))
 
@@ -29,12 +29,43 @@ options.add_argument("--window-size=1920,1080")
 options.add_argument("--disable-notifications")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
+options.add_argument("--log-level=3")
+options.add_experimental_option("excludeSwitches", ["enable-logging"])
+
 
 driver = webdriver.Edge(service=service, options=options)
 wait = WebDriverWait(driver, 60)  # increased wait for slow dropdowns
 action = ActionChains(driver)
 
 # ===================== HELPER FUNCTIONS =====================
+def open_sales_invoice_headless():
+    """Headless-safe navigation to SALES INVOICE page"""
+    # Force open main menu
+    driver.execute_script("""
+        var menu = document.getElementById('LeftPanel_LeftPanelContent_Menu_DXI0_T');
+        if (menu) { menu.click(); }
+    """)
+    time.sleep(1)
+
+    # Force open submenu
+    driver.execute_script("""
+        var submenu = document.getElementById('LeftPanel_LeftPanelContent_Menu_DXI0i0_T');
+        if (submenu) { submenu.click(); }
+    """)
+    time.sleep(1)
+
+    # Click final link by innerText
+    driver.execute_script("""
+        var links = document.getElementsByTagName('a');
+        for (var i = 0; i < links.length; i++) {
+            if (links[i].innerText.trim() === 'SALES INVOICE (FBR INTEGRATED)') {
+                links[i].click();
+                break;
+            }
+        }
+    """)
+    time.sleep(2)
+
 def safe_click(by, value, retries=4):
     for attempt in range(retries):
         try:
@@ -82,30 +113,44 @@ def handle_alert(action="accept", timeout=20):
         pass
 
 
-def select_dx_dropdown_item(item_text, timeout=40):
-    """Select an item from DevExpress dropdown using parent tbody"""
-    container = WebDriverWait(driver, timeout).until(
-        EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="PageContent_GridView_DXPEForm_efnew_tabs_DropList_DDD_lbAvailable_0_LBT"]/tbody')
+def select_dx_dropdown_item(item_text, timeout=140):
+    """Select an item from DevExpress dropdown using parent tbody.
+    If the item is not found, do nothing."""
+
+    try:
+        container = WebDriverWait(driver, timeout).until(
+            EC.presence_of_element_located(
+                (By.XPATH, '//*[@id="PageContent_GridView_DXPEForm_efnew_tabs_DropList_DDD_lbAvailable_0_LBT"]/tbody')
+            )
         )
-    )
 
-    # Wait until <tr> items appear
-    WebDriverWait(driver, timeout).until(
-        lambda d: len(container.find_elements(By.TAG_NAME, "tr")) > 0
-    )
+        # Wait until rows appear
+        WebDriverWait(driver, timeout).until(
+            lambda d: len(container.find_elements(By.TAG_NAME, "tr")) > 0
+        )
 
-    rows = container.find_elements(By.TAG_NAME, "tr")
-    for row in rows:
-        td = row.find_element(By.TAG_NAME, "td")
-        if item_text.lower() in td.text.lower():
-            driver.execute_script("arguments[0].scrollIntoView({block:'center'});", td)
-            driver.execute_script("arguments[0].click();", td)
-            return
+        rows = container.find_elements(By.TAG_NAME, "tr")
 
-    # If not found
-    print(f"⚠ Text '{item_text}' not found — first dropdown item selected")
-    rows[0].click()  # fallback click first item
+        # Track if we actually selected anything
+        selected = False
+
+        for row in rows:
+            td = row.find_element(By.TAG_NAME, "td")
+            cell_text = td.text.strip().replace("\n", " ").lower()  # clean text
+            target_text = item_text.strip().lower()
+            if target_text in cell_text:
+                driver.execute_script("arguments[0].scrollIntoView({block:'center'});", td)
+                driver.execute_script("arguments[0].click();", td)
+                selected = True
+                break  # stop after selecting
+
+        if not selected:
+            print(f"⚠ Text '{item_text}' not found — skipping selection")
+
+    except TimeoutException:
+        print(f"⚠ Dropdown did not load in {timeout} seconds — skipping selection")
+
+
 
 # ===================== LOGIN =====================
 driver.get(f"http://5.223.43.152:{code}")
@@ -123,8 +168,17 @@ safe_click(By.ID, 'PageContent_FormLayout_SignInButton_CD')
 # safe_click(By.ID, 'LeftPanel_LeftPanelContent_Menu_DXI0_T')
 # safe_click(By.ID, 'LeftPanel_LeftPanelContent_Menu_DXI0i0_T')
 # safe_click(By.LINK_TEXT, 'SALES INVOICE (FBR INTEGRATED)')
+# if "--headless=new" in driver.capabilities.get("goog:chromeOptions", {}).get("args", []):
+#     open_sales_invoice_headless()
+# else:
+#     safe_click(By.ID, 'LeftPanel_LeftPanelContent_Menu_DXI0_T')
+#     safe_click(By.ID, 'LeftPanel_LeftPanelContent_Menu_DXI0i0_T')
+#     safe_click(By.LINK_TEXT, 'SALES INVOICE (FBR INTEGRATED)')
+open_sales_invoice_headless()
+
 
 # ===================== MAIN LOOP =====================
+
 def create_invoice(item_text, list_id, entry_no, amount, label):
     """Create one invoice entry"""
     safe_click(By.ID, "PageContent_GridView_DXCTMenu0_ITCNT1_NewInvoice_1_CD")
@@ -168,9 +222,9 @@ def create_invoice(item_text, list_id, entry_no, amount, label):
     amount_box.send_keys(amount)
 
     safe_click(By.ID, "PageContent_GridView_DXPEForm_efnew_tabs_StatusBarLayout_btnSave_CD")
-    handle_alert(action='accept' timeout=10)
+    handle_alert(action="accept", timeout=10)
     # time.sleep(3)
-    handle_alert(action="dismiss" timeout=30)
+    handle_alert(action="dismiss", timeout=30)
     print(f" '{label}' Invoice '{entry_no}' submitted successfully")
     time.sleep(time_data)
 
@@ -194,14 +248,13 @@ for _ in range(number):
         "FABRIC"
     )
 
-    # Mix
-    create_invoice(
-        "LADIES Un-stitched suites (5 assorted colours & designs) (6204)",
-        "PageContent_GridView_DXPEForm_efnew_tabs_DropList_DDD_lbAvailable_0_LBI0T2",
-        mix_entry,
-        mix_amount,
-        "UNSTITCHED"
-    )
+    # # Mix
+    # create_invoice(
+    #     "LADIES Un-stitched suites (5 assorted colours & designs) (6204)",
+    #     "PageContent_GridView_DXPEForm_efnew_tabs_DropList_DDD_lbAvailable_0_LBI0T2",
+    #     mix_entry,
+    #     mix_amount,
+    #     "UNSTITCHED"
+    # )
 
 driver.quit()
-

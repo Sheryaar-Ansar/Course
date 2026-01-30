@@ -113,7 +113,7 @@ def handle_alert(action="accept", timeout=20):
         pass
 
 
-def select_dx_dropdown_item(item_text, timeout=140):
+def select_dx_dropdown_item(item_text, timeout=500):
     """Select an item from DevExpress dropdown using parent tbody.
     If the item is not found, do nothing."""
 
@@ -232,29 +232,29 @@ def create_invoice(item_text, list_id, entry_no, amount, label):
 for _ in range(number):
     # Fabric
     create_invoice(
-        "Ladies Fabrics (Fancy) (5408)",
-        "PageContent_GridView_DXPEForm_efnew_tabs_DropList_DDD_lbAvailable_0_LBI1T2",
+        "EMBROIDED TULLE NET SUITS (UN STITCHED) (6104)",
+        "PageContent_GridView_DXPEForm_efnew_tabs_DropList_DDD_lbAvailable_0_LBI3T2",
         fabric_entry,
         fabric_amount,
-        "FANCY"
+        "MIX 1"
     )
 
     # Fancy
     create_invoice(
-        "LADIES FABRIC (5408)",
-        "PageContent_GridView_DXPEForm_efnew_tabs_DropList_DDD_lbAvailable_0_LBI2T2",
+        "EMBROIDED TULLE NET SUITS (UN STITCHED) (6104)",
+        "PageContent_GridView_DXPEForm_efnew_tabs_DropList_DDD_lbAvailable_0_LBI3T2",
         fancy_entry,
         fancy_amount,
-        "FABRIC"
+        "MIX 2"
     )
 
     # Mix
     create_invoice(
-        "LADIES Un-stitched suites (5 assorted colours & designs) (6204)",
-        "PageContent_GridView_DXPEForm_efnew_tabs_DropList_DDD_lbAvailable_0_LBI0T2",
+        "EMBROIDED TULLE NET SUITS (UN STITCHED) (6104)",
+        "PageContent_GridView_DXPEForm_efnew_tabs_DropList_DDD_lbAvailable_0_LBI3T2",
         mix_entry,
         mix_amount,
-        "UNSTITCHED"
+        "MIX 3"
     )
 
 driver.quit()
